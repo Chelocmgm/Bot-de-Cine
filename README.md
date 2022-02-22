@@ -19,7 +19,7 @@ La empresa de cine HIGH SCHOOL MUSICAL, cuanta con 10 empleados entre los cuales
 6. Cuando exite mucha demanda de una pelicula existen riesgos de no haber 
    hecho un buen control de la compra de tickets.
 
-##Problematica en el cliente
+## Problematica en el cliente
 
 1. Existe una mayor exposicion a contagios contra el virus COVID 19
    en el control de filas.
@@ -37,5 +37,77 @@ La empresa de cine HIGH SCHOOL MUSICAL, cuanta con 10 empleados entre los cuales
  - Mayor seguridad hacia los empleados y clientes contra contagios.
  - Perdida de tiempo en la limpieza.
 
+## Ejemplo de funcionamiento de Bot
+
+### Menu cliente
+
+Cliente: Hola
+Bot: Hola como puedo ayudarte?
+1. Ver cartelera
+2. Infomacion de reservas
+3. Historial de compras
+4. Salir
+
+
+Si selecciona la opcion 1:
+
+Bot: Usted selecciono ver la cartelera
+Bot: Seleccione una pelicula:
+1. Spiderman
+2. Batman
+3. Star Wars
+4. Sing 2
+5. Salir
+
+
+Si selecciona una pelicula:
+
+Bot: Usted Selecciono Batman
+Seleccione un horario:
+
+1. 13:00 - 15:30
+2. 14:00 - 16:30 Sub
+3. 15:00 - 17:30
+4. Salir
+
+Si selecciona un horario:
+
+Bot: Numero de asientos?
+(En caso de equivocacion presione 0 para retroceder)
+
+
+
+Una vez seleccionado el numero de asientos el bot
+procede a reealizar la venta de los tickets
+
+Bot: Total de su compra ..... Bs
+1. Pagar
+2. Cancelar
+
+
+Si selecciona 1
+
+Bot: Ingrese datos de su tarjeta
+(En caso de equivocacion presione 0 para retroceder)
+
+Numero de tarjeta...
+Fecha de expiracion...
+Codigo de tres digitos...
+Titular ded la tarjeta...
+
+Una vez ingresados los datos
+
+Bot: Pago acceptado / Pago denegado
+
+Si pago aceptado
+
+Bot: Codigo de ticket abc123
+
+Si pago denegado
+
+Bot: Hubo un problema con el metodo de pago
+
+1. Reintentar
+2. Salir
 
 
