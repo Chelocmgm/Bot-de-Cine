@@ -1,0 +1,82 @@
+= {product} - Histórias de Usuario
+Universidad Católica Boliviana. <joseph.colbert@ucb.edu.bo>
+1.0.0
+:product: Bot de Cine
+
+## 100- Compra de tickets, pipocas y golosinas
+Autor: Joseph Colbert
+
+Fecha: 03-06-2022
+
+Prioridad: Alta
+
+## Descripcion
+
+Un usuario debe solicitar la compra de tickets, pipocas o golosinas por medio de la aplicacion, para esto debe acceder a telegram y establecer una comunicacion con el bot.
+De esta manera el bot se encargara de desplegar diferentes opciones de compra, tanto para el ticket de cine como para las golosinas y pipocas. Con relacion a la
+compra de golosinas el bot estara encargado de almacenar la informacion del pedido el cual el trabjador correspondiente podra tener acceso a ella y preparar 
+el pedido con anticipacion. En cuanto a la compra de tickets de cine, el bot debera pedir todos los datos requeridos como ser el numero de personas,
+la pelicula deseada, los asientos requeridos, y como tal metodo de pago. Teniendo en cuenta toda la informacion requerida por el bot, este debera almacenar 
+y brindar la informacion necesaria a quien corresponda.
+
+## Diargrama
+
+[plantuml, format="png", id="estados-solicitud"]
+...plantuml
+
+@startuml
+
+actor usuario
+usuario -> Bot : Solicitar compra de tickets, pipocas o golosinas
+database baseDeDatos 
+Bot -> baseDeDatos: Solicitar informacion
+baseDeDatos -> Bot: Brindar informacion
+Bot -> usuario:
+usuario -> Bot: Seleccionar requerimientos solicitados
+Bot -> baseDeDatos: Almacenar informacion
+Bot -> usuario: Solicitar informacion de la tarjeta
+usuario -> Bot: Brindar informacion de la tarjeta
+Bot -> baseDeDatos: Almacenar informacion de la tarjeta
+Bot -> Banco:Realizar consuta
+Banco -> Bot: Regresar aprobacion de transferencia
+Bot -> baseDeDatos: Almacenar la compra 
+baseDeDatos -> Bot: Brindar informacion
+Bot -> usuario: Brindar mensaje de compra exitosa 
+
+@enduml
+...
+
+## Escenarios
+ 
+SOLICITADO: Cuando el usuario manda una solicitud de compra al Bot y dicho Bot no la rechaza.
+SOLICITUD RECHAZADA: Solicitud rechazada por diferentes factores de informacion
+SOLICITUD ACEPTADA: El bot acepta toda la informacion para la compra y procede a almacenar dicha informacion.
+
+## Casos de Prueba
+
+123.000.1 Validacion de informacion
+Al momento de registrar los datos de la tarjeta del usuario, los siguientes datos son obligatorios :
+Nombre del titular de la tarjeta, numero de la tarjeta, emisor de la tarjeta(visa, masetercard,etc), fecha de caducidad
+cvv(no recuerdo el nombre).
+En caso que el usuario no ingrese uno de estos valores, la compra no deberia proceder 
+
+## Pasos:
+
+1. Ingresar al bot via telegram y enviar el comando/start
+	- Resultado esperado: el bot brinda una serie de opciones para poder seleccionarlas
+2. El usuario selecciona la compra de tickets de cine
+	- Resutado esperado: el bot brindara la lista de peliculas en cartelera
+3. El usuario selecciona la pelicula deseada
+	- Resultado esperado: el bot desplegara los horarios disponibles
+4. El usuario seleccionara el horario requerido
+	- Resultado esperado: el bot debera desplegar la oopcion de la cantidad de tickets deseados.
+5. El usuario ingresara la cantidad de tickets
+	- Resultado esperado: el bot desplegara la opcion para seleccionar asientos.
+6. El usuario seleccionara los asientos deseados.
+	- Resultado esperaddo: el bot procedera a mostrar el metodo de pago
+7. El usuario ingresa datos no validos/emojis
+	- Datos: Titular de la tarjeta: 'Juan Perez😁'
+	- Resultado esperado: el bot le indicara que no puede colocar caracteres especiales.
+8. El usuario coloca un espacio en blanco.
+	- Datos: 'espacio en blanco'
+	- Resultado esperado: el bot pide ingresar todos los datos de la tarjeta para poder validar la compra.
