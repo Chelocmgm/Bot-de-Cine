@@ -25,11 +25,23 @@ La información que se guardara en la BDD sera lo siguiente:
  * Fecha
  * Sala
 
+Para poder ingresar al menu de las películas, el empleado debera ingresar:
+
+ * Nombre de Usuario
+ * Contraseña
+
+Para todo esto el bot debera:
+
+ * Verificar si los datos son correctos para el ingreso a las películas.
+
+
 El diagrama de secuencias es el siguiente:
 
-[plantuml, format="png",id= "estados-solicitud"]
+[plantuml, format="png",id= "ingresar-pelicula"]
+
 ....
 @startuml
+actor Empleado
 Empleado -> Bot : Ingresar nueva película
 Bot -> Empleado: Pedir Usuario
 Empleado -> Bot : Ingresar datos
@@ -42,6 +54,35 @@ database Películas
 Bot --> Películas : Ingresa Datos
 Películas --> Bot : Notificar el ingreso de datos
 Bot -> Empleado : Datos Ingresados
+
 @enduml
 ....
 
+## Escenarios
+
+*PERFIL ACEPTADO:* Cuando el empleado ingresa sus datos de su perfil y el bot lo aprueba.
+
+*PERFIL RECHAZADO:* Cuando el empleado ingresa sus datos de su perfil, pero los datos son incorrectos y el bot le manda un mensaje recalcando que el usuario o la contraseña son incorrectos.
+
+*INGRESAR DATOS DE LA PELÍCULA:* El empleado ingresa los datos de las películas para actualizar la cartelera y el bot lo aprueba.
+
+*DATOS RECHAZADOS:* El empleado ingresa los datos para la película pero el bot los rechaza, esto porque hay cruces de horario en alguna sala o porque falta algun dato.
+
+## Casos de Prueba
+
+123.000.2 Validación de la información: Al momento de ingresar los datos, el empleado deberá ingresar su nombre de usuario y la contraseña, en caso de que algun dato sea incorrecto, no podra ingresar al sistema. Posterior al ingreso al sistema, el empleado ingresará los datos de las películas, las cuales serian el nombre, los horarios, la fotografia de la película y las salas en las que se emitira la película, en caso de que haya un choque de horarios en alguna sala o algun dato falte, no podra agregar la película.
+
+ 1. Ingresar al bot por medio de telegram y enviar el comando /start
+  * Resultado esperado: el bot te enviara el menu del login.
+ 2. El empleado ingresa sus datos de forma correcta
+  * Resultado esperado: el bot verificará los datos y posterior te enviará al menu de las películas.
+ 3. El empleado ingresa sus datos de forma incorrecta
+  * Resultado esperado: el bot verificará los datos y posterior a eso mandará un mensaje diciendo que los datos son incorrectos.
+ 4. El empleado elige la opción de cargado de películas
+  * Resultado esperado: El bot desplegará el formulario para ingresar la película.
+ 5. El empleado ingresa los datos de forma incompleta
+  * Resultado esperado: El bot verificará los datos y posterior mandará un mensaje diciendo que los datos estan incompletos.
+ 6. El empleado ingresa los datos pero hay un cruce de horarios en una sala.
+  * Resultado esperado: El bot verificará los datos y posterior mandará un mensaje diciendo que hay un cruce de horarios en la sala #.
+ 7. El empleado ingresa de la película de forma correcta
+  * Resultado esperado: El bot verificará los datos y posterior mandará un mensaje diciendo ingreso de datos exitoso.
