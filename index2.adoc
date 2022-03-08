@@ -1,0 +1,47 @@
+= {product} - Histórias de Usuario
+Universidad Católica Boliviana. <marcelo.miranda@ucb.edu.bo>
+1.0.0
+:product: BOT RRHH
+
+## Historia de Usuario.
+
+### 101 Cargar Horarios y Películas
+*Autor* : Marcelo Miranda
+
+*Fecha* : 7/02/2022
+
+*Prioridad* : ALTA
+
+## Descripción
+Un "Empleado" debe actualizar los horarios de las funciones cada día miércoles, esto tomando en cuenta los nuevos estrenos, para eso debe ingresar el nombre de la película, los horarios que tendrá la película, las fechas en las cuales serán las funciones, su respectiva fotografía de la película y las salas en las cuales se emitirá la película. Una vez ingresado los datos, el bot deberá llevar un control de los siguientes puntos:
+
+ * Los choques de horario que hay entre una película y otra en una misma sala.
+ * Mostrar la interface con las peliculas y sus horarios que fueron agregados.
+
+La información que se guardara en la BDD sera lo siguiente:
+
+ * Nombre de la película
+ * Horario
+ * Fecha
+ * Sala
+
+El diagrama de secuencias es el siguiente:
+
+[plantuml, format="png",id= "estados-solicitud"]
+....
+@startuml
+Empleado -> Bot : Ingresar nueva película
+Bot -> Empleado: Pedir Usuario
+Empleado -> Bot : Ingresar datos
+database Empleados
+Bot --> Empleados : Verificar Datos de Usuario
+Empleados --> Bot : Datos Verificados
+Bot -> Empleado : Dar Respuesta
+Empleado -> Bot : Ingresar Datos de la Película
+database Películas
+Bot --> Películas : Ingresa Datos
+Películas --> Bot : Notificar el ingreso de datos
+Bot -> Empleado : Datos Ingresados
+@enduml
+....
+
