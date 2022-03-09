@@ -1,11 +1,11 @@
 = {product} - Histórias de Usuario
 Universidad Católica Boliviana. <marcelo.miranda@ucb.edu.bo>
 1.0.0
-:product: BOT RRHH
+:product: Bot para un Cine
 
 ## Historia de Usuario.
 
-### 101 Cargar Horarios y Películas
+### 100 Cargar Horarios y Películas
 *Autor* : Marcelo Miranda
 
 *Fecha* : 7/02/2022
@@ -13,27 +13,20 @@ Universidad Católica Boliviana. <marcelo.miranda@ucb.edu.bo>
 *Prioridad* : ALTA
 
 ## Descripción
-Un "Empleado" debe actualizar los horarios de las funciones cada día miércoles, esto tomando en cuenta los nuevos estrenos, para eso debe ingresar el nombre de la película, los horarios que tendrá la película, las fechas en las cuales serán las funciones, su respectiva fotografía de la película y las salas en las cuales se emitirá la película. Una vez ingresado los datos, el bot deberá llevar un control de los siguientes puntos:
+Como 'Empleado' del cine, debo realizar el cargado de las películas, para eso debo contar con un usuario para ingresar al sistema, para el cargado de las películas, debo ingresar la siguiente información:
 
- * Los choques de horario que hay entre una película y otra en una misma sala.
- * Mostrar la interface con las peliculas y sus horarios que fueron agregados.
+ * Nombre de la película 
+ * Horario para cada función 
+ * Sala en la que se emitirá la película 
+ * Género de la película
+ * Fechas de las funciones
+ * Fotografia de la película
+ 
+Toda esta información se debe guardar en una BDD, El bot debe tomar en cuenta los siguientes aspectos:
 
-La información que se guardara en la BDD sera lo siguiente:
-
- * Nombre de la película
- * Horario
- * Fecha
- * Sala
-
-Para poder ingresar al menu de las películas, el empleado debera ingresar:
-
- * Nombre de Usuario
- * Contraseña
-
-Para todo esto el bot debera:
-
- * Verificar si los datos son correctos para el ingreso a las películas.
-
+ * La información del usuario sea correcto para ingresar al sistema.
+ * Verificar si hay choque de horarios entre películas en alguna sala.
+ * Mostrar una lista con las películas que se agregaron.
 
 El diagrama de secuencias es el siguiente:
 
@@ -60,29 +53,78 @@ Bot -> Empleado : Datos Ingresados
 
 ## Escenarios
 
-*PERFIL ACEPTADO:* Cuando el empleado ingresa sus datos de su perfil y el bot lo aprueba.
-
-*PERFIL RECHAZADO:* Cuando el empleado ingresa sus datos de su perfil, pero los datos son incorrectos y el bot le manda un mensaje recalcando que el usuario o la contraseña son incorrectos.
-
-*INGRESAR DATOS DE LA PELÍCULA:* El empleado ingresa los datos de las películas para actualizar la cartelera y el bot lo aprueba.
-
-*DATOS RECHAZADOS:* El empleado ingresa los datos para la película pero el bot los rechaza, esto porque hay cruces de horario en alguna sala o porque falta algun dato.
+ * El empleado ingresa de forma erronea sus datos de usuario.
+ * El empleado no ingresa todos los datos de la película.
+ * Choque de horarios entre dos películas en una misma sala.
 
 ## Casos de Prueba
 
-123.000.2 Validación de la información: Al momento de ingresar los datos, el empleado deberá ingresar su nombre de usuario y la contraseña, en caso de que algun dato sea incorrecto, no podra ingresar al sistema. Posterior al ingreso al sistema, el empleado ingresará los datos de las películas, las cuales serian el nombre, los horarios, la fotografia de la película y las salas en las que se emitira la película, en caso de que haya un choque de horarios en alguna sala o algun dato falte, no podra agregar la película.
+### 100.1.1 Ingresar al sistema
 
- 1. Ingresar al bot por medio de telegram y enviar el comando /start
-  * Resultado esperado: el bot te enviara el menu del login.
- 2. El empleado ingresa sus datos de forma correcta
-  * Resultado esperado: el bot verificará los datos y posterior te enviará al menu de las películas.
- 3. El empleado ingresa sus datos de forma incorrecta
-  * Resultado esperado: el bot verificará los datos y posterior a eso mandará un mensaje diciendo que los datos son incorrectos.
- 4. El empleado elige la opción de cargado de películas
-  * Resultado esperado: El bot desplegará el formulario para ingresar la película.
- 5. El empleado ingresa los datos de forma incompleta
-  * Resultado esperado: El bot verificará los datos y posterior mandará un mensaje diciendo que los datos estan incompletos.
- 6. El empleado ingresa los datos pero hay un cruce de horarios en una sala.
-  * Resultado esperado: El bot verificará los datos y posterior mandará un mensaje diciendo que hay un cruce de horarios en la sala #.
- 7. El empleado ingresa de la película de forma correcta
-  * Resultado esperado: El bot verificará los datos y posterior mandará un mensaje diciendo ingreso de datos exitoso.
+Descripción: El empleado ingresa sus datos para poder ingresar al sistema.
+
+ 1. Ingresa al bot por medio de Telegram y coloca sus datos pero de forma erronea
+  * Empleado: /Hola
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: Juan12
+  * Bot: Ingrese su contraseña
+  * Empleado: 1548913
+  * Bot: Usuario o Contraseña son incorrectos, vuelva a intentarlo
+ 
+ 2. El empleado se equivoca mas de 3 veces
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: Juan12
+  * Bot: Ingrese su contraseña
+  * Empleado: Contraseña
+  * Bot: Usuario o Contraseña son incorrectos, llego al número maximo de intentos, intentelo de nuevo dentro de 1h
+
+ 3. El empleado no ingresa algun dato
+  * Empleado: /Hola
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: 
+  * Bot: Ingrese su Usuario, no debe dejar espacios vacios
+
+ 4. El empleado ingresa sus datos de forma correcta
+  * Empleado: /Hola
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: Juan12
+  * Bot: Ingrese su contraseña
+  * Empleado: Juan12
+  * Bot: Datos correctos (Despliega el menu de Empleado)
+
+### 100.1.2 Ingresar los datos de la película
+Descripción: El empleado elige la opcion de "Cargar Película" para luego ingresar la información.
+
+ 1. El empleado elige la opción de "Cargar Película"
+  * Bot: Elija una opción ingresando el número
+   1 Cargar Película 2 Modificar .......... 10 Cerrar Sesión
+  * Empleado: 1
+  * Bot: Ingrese el nombre de la película
+
+ 2. El empleado no llena algun campo de la película
+  * Bot: Ingrese el nombre de la película
+  * Empleado: 
+  * Bot: No se acepta campos vacios, vuelva a llenarlo por favor
+ 
+ 3. El empleado ingresa la información pero hay un choque de horarios
+  * Bot: Ingrese los horarios (Despliega menu con horarios)
+  * Empleado: (Elije los horarios)
+  * Bot: Elija las salas (Despliega menu con numero de salas)
+  * Empleado: (Elije las salas)
+  * Bot: Hay un choque de horarios, horario 16:00 sala 1, vuelva a elegir los horarios o la sala
+
+ 4. El empleado ingresa toda la información de forma correcta de la película
+  * Bot: Ingrese el nombre de la película
+  * Empleado: Batman
+  * Bot: Ingrese el género (Despliega menu con géneros)
+  * Empleado: (Elige el género)
+  * Bot: Ingrese los horarios (Despliega menu con horarios)
+  * Empleado: (Elije los horarios)
+  * Bot: Elija las salas (Despliega menu con numero de salas)
+  * Empleado: (Elije las salas)
+  * Bot: Ingrese la fotografia
+  * Empleado: (Ingresa la fotografia)
+  * Bot: Ingreso de datos exitosos
+  
+
+
