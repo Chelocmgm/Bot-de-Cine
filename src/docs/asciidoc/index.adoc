@@ -1,9 +1,27 @@
 = {product} - Histórias de Usuario
-Universidad Católica Boliviana. <marcelo.miranda@ucb.edu.bo>
-1.0.0
 :product: Bot para un Cine
 
-## Historia de Usuario.
+## Historias de Usuario.
+
+## Introduccion 
+
+El presente documento detalla toda la funcionalidad referente al Bot de cine, esto mediante diferentes historias de usaurio las cuales abarcaran las siguinetes funcionalidades: 
+
+Cine:
+
+* Cargar películas y horarios, con fotografías.
+
+* Ver ocupación de una sala de cine.
+
+* Controlar acceso al cine con tickets virtuales
+* Ver pedidos para las próximas funciones.
+* Entregar pedidos.
+
+Cliente:
+
+* Comprar tickets para las películas.
+* Comprar golosinas y bebidas para las películas
+* Recoger un pedido de golosinas.
 
 ### 100 Cargar Horarios y Películas
 *Autor* : Marcelo Miranda
@@ -126,9 +144,8 @@ Descripción: El empleado elige la opcion de "Cargar Película" para luego ingre
   * Empleado: (Ingresa la fotografia)
   * Bot: Ingreso de datos exitosos
   
-Universidad Católica Boliviana. <marcelo.ugarte@ucb.edu.bo>
-1.0.0
-:product: BOT Validacion de reservas
+### 102 Entrega de tickets y productos
+
 *Autor*: Marcelo Ugarte Heredia
 
 *Fecha*: 03/07/2022
