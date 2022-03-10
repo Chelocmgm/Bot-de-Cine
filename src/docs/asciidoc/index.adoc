@@ -1,11 +1,11 @@
-= {product} - Histórias de Usuario
+= {product} - Historias de Usuario
 :product: Bot para un Cine
 
 ## Historias de Usuario.
 
-## Introduccion 
+## Introducción 
 
-El presente documento detalla toda la funcionalidad referente al Bot de cine, esto mediante diferentes historias de usaurio las cuales abarcaran las siguinetes funcionalidades: 
+El presente documento detalla toda la funcionalidad referente al Bot de cine, esto mediante diferentes historias de usuario las cuales abarcaran las siguientes funcionalidades: 
 
 Cine:
 
@@ -38,9 +38,9 @@ Como 'Empleado' del cine, debo realizar el cargado de las películas, para eso d
  * Sala en la que se emitirá la película 
  * Género de la película
  * Fechas de las funciones
- * Fotografia de la película
+ * Fotografía de la película
  
-Toda esta información se debe guardar en una BDD, El bot debe tomar en cuenta los siguientes aspectos:
+Toda esta información se debe guardar en una BDD, El Bot debe tomar en cuenta los siguientes aspectos:
 
  * La información del usuario sea correcto para ingresar al sistema.
  * Verificar si hay choque de horarios entre películas en alguna sala.
@@ -71,7 +71,7 @@ Bot -> Empleado : Datos Ingresados
 
 ## Escenarios
 
- * El empleado ingresa de forma erronea sus datos de usuario.
+ * El empleado ingresa de forma errónea sus datos de usuario.
  * El empleado no ingresa todos los datos de la película.
  * Choque de horarios entre dos películas en una misma sala.
 
@@ -81,7 +81,7 @@ Bot -> Empleado : Datos Ingresados
 
 Descripción: El empleado ingresa sus datos para poder ingresar al sistema.
 
- 1. Ingresa al bot por medio de Telegram y coloca sus datos pero de forma erronea
+ 1. Ingresa al Bot por medio de Telegram y coloca sus datos, pero de forma errónea
   * Empleado: /Hola
   * Bot: Hola, ingrese su Usuario
   * Empleado: Juan12
@@ -89,18 +89,18 @@ Descripción: El empleado ingresa sus datos para poder ingresar al sistema.
   * Empleado: 1548913
   * Bot: Usuario o Contraseña son incorrectos, vuelva a intentarlo
  
- 2. El empleado se equivoca mas de 3 veces
+ 2. El empleado se equivoca más de 3 veces
   * Bot: Hola, ingrese su Usuario
   * Empleado: Juan12
   * Bot: Ingrese su contraseña
   * Empleado: Contraseña
-  * Bot: Usuario o Contraseña son incorrectos, llego al número maximo de intentos, intentelo de nuevo dentro de 1h
+  * Bot: Usuario o Contraseña son incorrectos, llego al número máximo de intentos, inténtelo de nuevo dentro de 1h
 
- 3. El empleado no ingresa algun dato
+ 3. El empleado no ingresa algún dato
   * Empleado: /Hola
   * Bot: Hola, ingrese su Usuario
   * Empleado: 
-  * Bot: Ingrese su Usuario, no debe dejar espacios vacios
+  * Bot: Ingrese su Usuario, no debe dejar espacios vacíos
 
  4. El empleado ingresa sus datos de forma correcta
   * Empleado: /Hola
@@ -108,10 +108,10 @@ Descripción: El empleado ingresa sus datos para poder ingresar al sistema.
   * Empleado: Juan12
   * Bot: Ingrese su contraseña
   * Empleado: Juan12
-  * Bot: Datos correctos (Despliega el menu de Empleado)
+  * Bot: Datos correctos (Despliega el menú de Empleado)
 
 ### 100.1.2 Ingresar los datos de la película
-Descripción: El empleado elige la opcion de "Cargar Película" para luego ingresar la información.
+Descripción: El empleado elige la opción de "Cargar Película" para luego ingresar la información.
 
  1. El empleado elige la opción de "Cargar Película"
   * Bot: Elija una opción ingresando el número
@@ -119,31 +119,30 @@ Descripción: El empleado elige la opcion de "Cargar Película" para luego ingre
   * Empleado: 1
   * Bot: Ingrese el nombre de la película
 
- 2. El empleado no llena algun campo de la película
+ 2. El empleado no llena algún campo de la película
   * Bot: Ingrese el nombre de la película
   * Empleado: 
-  * Bot: No se acepta campos vacios, vuelva a llenarlo por favor
+  * Bot: No se acepta campos vacíos, vuelva a llenarlo por favor
  
- 3. El empleado ingresa la información pero hay un choque de horarios
-  * Bot: Ingrese los horarios (Despliega menu con horarios)
+ 3. El empleado ingresa la información, pero hay un choque de horarios
+  * Bot: Ingrese los horarios (Despliega menú con horarios)
   * Empleado: (Elije los horarios)
-  * Bot: Elija las salas (Despliega menu con numero de salas)
+  * Bot: Elija las salas (Despliega menú con número de salas)
   * Empleado: (Elije las salas)
   * Bot: Hay un choque de horarios, horario 16:00 sala 1, vuelva a elegir los horarios o la sala
 
  4. El empleado ingresa toda la información de forma correcta de la película
   * Bot: Ingrese el nombre de la película
   * Empleado: Batman
-  * Bot: Ingrese el género (Despliega menu con géneros)
+  * Bot: Ingrese el género (Despliega menú con géneros)
   * Empleado: (Elige el género)
-  * Bot: Ingrese los horarios (Despliega menu con horarios)
+  * Bot: Ingrese los horarios (Despliega menú con horarios)
   * Empleado: (Elije los horarios)
-  * Bot: Elija las salas (Despliega menu con numero de salas)
+  * Bot: Elija las salas (Despliega menú con número de salas)
   * Empleado: (Elije las salas)
-  * Bot: Ingrese la fotografia
-  * Empleado: (Ingresa la fotografia)
+  * Bot: Ingrese la fotografía
+  * Empleado: (Ingresa la fotografía)
   * Bot: Ingreso de datos exitosos
-
 
  
 ## 101- Compra de tickets, pipocas y golosinas
