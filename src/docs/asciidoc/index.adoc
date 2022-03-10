@@ -175,7 +175,7 @@ Teniendo en cuenta toda la información requerida por el bot, éste deberá alma
 
 
  
-## Diagrama
+El diagrama de secuencias para la presente historia es el siguiente:
  
 [plantuml, format="png", id="estados-solicitud"]
 ....
@@ -294,69 +294,63 @@ Pasos:
 
 *Fecha*: 03/07/2022
 
-*Prioridad*: MUY ALTA
+*Prioridad*: ALTA
 
 ## Descripcion 
 
-El bot generara un codigo de reserva con la reserva de las entradas en los puestos que el usaurio haya elegido 
-una vez echo esto el usuario debera dirigirse a un empleado en caja y de esa manera mostrar el codigo de reserva 
-para que este pueda generar sus entradas directamente por lo cual el empleado del cine debera pedir la siguiente 
-informacion:
-
-	* Codigo de reserva 
-
-	* Nombre completo 
-
-Una vez echo esto el empleado generara las entradas correspondientes de la misma manera si es que el usuario hace
-la compra de algun combo de comida el empleado debera ver la hora a la que el usaurio reservo el combo para que 
-este pueda ir preparando ya la comida y a la hora de que el usaurio pase a recoger la comida el empelado debera 
-pedir la siguiente informacion:
-
-	* Codigo de reserva 
-	* Nombre completo 
-Toda esta informacion es guardada en un BDD
-
+Un empleado solicitará al cliente el código de compra, Se procederá a la verificación correspondiente mediante el bot para el cual pedirá los siguientes datos:
+ 
+    * Código de reserva
+ 
+    * Nombre del cliente
+ 
+Una vez realizada la petición, el empleado generará las entradas correspondientes, de la misma manera se procederá a la entrega de algún tipo de un combo de golosinas o pipocas.
+ 
 El diagrama de secuencias para la presente historia es el siguiente:
-
+ 
 [plantuml, target=hitoria - usuario, format=png]
 ....
 @startuml
 actor usuario
 actor empleado
 usuario -> empleado : Entregar codigo de reserva
-empleado -> BOT : Ingresar datos de la reserva 
+empleado -> BOT : Ingresar datos de la reserva
 database BDD
 BOT -> BDD : Validar datos de reserva
 BDD -> BOT : Mandar respuesta de reserva
-BOT -> empleado:  Notificar sobre el estado de la reserva 
-empleado -> usuario : Entrega tickets y/o comidas 
+BOT -> empleado:  Notificar sobre el estado de la reserva
+empleado -> usuario : Entrega tickets y/o comidas
 @enduml
-.... 
-
+....
+ 
 ## Escenarios
-1. Reserva de tickets aprobada
-2. Reserva de tickets denegada 
-3. Reserva de comida aprobada 
-4. Reerva de comida denegada
-5. Validacion de datos del usuario por el empleado
-
-## Casos de prueba 
-Descripcion: Al momento de recoger los tickets o la comida el empleado debera pedir algunos datos para poder hacer
-la entrega de los mismos y asi poder reconocer a cada usuario.
-En caso de que alguno de los datos sea erroneo o no correspondan con la reserva estos no deberan desplegar ninguna 
-infromacion ni tampoco podra entregar ninguno de los dos objetos.
-
-Pasos: 
-
-	1. Ingresar al BOT via telegram y enviar el /start
-		- Resultado esperado: El bot despleagara un menu con varias opciones para el empleado
-	2. El `empleado` envia el comando /reserva de tickets 
-		- Datos: Codigo de reserva del usuario 
-		- Resultado esperado: El BOT pregunta por el codigo de reserva
-	3. El empleado pone un espacio en blanco
-		- Datos: Espacio en blanco 
-		- Reultado esperado: El bot pedira nuevamente el codigo de reserva 
-	4. El `empleado` generalas entradas o comida respectiva del usuario 
-		- Resultado esperado: El bot marcara como "entregado" el pedido del usuario
-  
+ 
+- El cliente brindará información previamente registrada.
+- El cliente brindará información errónea o inexistente.
+ 
+ 
+## Casos de prueba
+ 
+102.1. Validación de codigo de compra ya utilizado
+ 
+Descripción: El empleado hará la búsqueda del código de compras mediante el cual desplegará la información en caso de que esté vigente o no haya sido utilizado previamente.
+ 
+Pasos:
+ 
+    1. Ingresar al BOT via telegram y enviar /start
+        - Resultado esperado: El bot desplegará un menú con varias opciones para el empleado
+    2. El empleado selecciona el comando /código de compra
+        - Datos: Codigo de compra del usuario ya utilizado
+        - Resultado esperado: El BOT desplegará el siguiente mensaje "Código ya utilizado"
+   
+102.2. Validación de código de compra inexistente
+ 
+Descripción: El empleado hará la búsqueda del código de compras mediante el cual si este no existe se desplegará una alerta.
+Pasos:
+ 
+    1. Ingresar al BOT via telegram y enviar /start
+        - Resultado esperado: El bot desplegará un menú con varias opciones para el empleado
+   2. El empleado selecciona el comando /código de compra
+        - Datos: Codigo de compra del usuario ya utilizado
+        - Resultado esperado: El BOT desplegara el siguiente mensaje "Código de compra inexistente"
 
