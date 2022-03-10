@@ -143,6 +143,150 @@ Descripción: El empleado elige la opcion de "Cargar Película" para luego ingre
   * Bot: Ingrese la fotografia
   * Empleado: (Ingresa la fotografia)
   * Bot: Ingreso de datos exitosos
+
+
+ 
+## 101- Compra de tickets, pipocas y golosinas
+Autor: Joseph Colbert
+ 
+Fecha: 03-09-2022
+ 
+Prioridad: Muy Alta
+ 
+## Descripción
+ 
+Como cliente del cine debo solicitar la compra de tickets, pipocas o golosinas por medio de la aplicación, para esto debe acceder a telegram y establecer una comunicación con el bot. De esta manera el bot se encargará de desplegar diferentes opciones de compra, tanto para el ticket de cine como para las golosinas y pipocas. Con relación a la compra de golosinas el bot estará encargado de almacenar la información del pedido donde el trabajador correspondiente podrá tener acceso a ella y preparar el pedido con anticipación. 
+En cuanto a la compra de tickets de cine, 
+El bot deberá pedir todos los datos requeridos para la compra del ticket como ser:
+
+      *  El número de personas
+      *  La película deseada, 
+      *  Los asientos requeridos,
+      *  Como tal método de pago.
+
+El bot deberá pedir todos los datos requeridos para la compra de las golosinas y pipocas como ser:
+
+        * Tamaño de pipocas 
+        * Tamaño de refresco
+        * Tipo de golosina
+        * Como tal el metodo de pago
+
+Teniendo en cuenta toda la información requerida por el bot, éste deberá almacenar y brindar la información necesaria a quien corresponda.
+
+
+ 
+## Diagrama
+ 
+[plantuml, format="png", id="estados-solicitud"]
+....
+@startuml
+ 
+actor usuario
+usuario -> Bot : Solicitar compra de tickets, pipocas o golosinas
+database baseDeDatos
+Bot -> baseDeDatos: Solicitar informacion
+baseDeDatos -> Bot: Brindar informacion
+Bot -> usuario:
+usuario -> Bot: Seleccionar requerimientos solicitados
+Bot -> baseDeDatos: Almacenar informacion
+Bot -> usuario: Solicitar informacion de la tarjeta
+usuario -> Bot: Brindar informacion de la tarjeta
+Bot -> baseDeDatos: Almacenar informacion de la tarjeta
+Bot -> Banco:Realizar consuta
+Banco -> Bot: Regresar aprobacion de transferencia
+Bot -> baseDeDatos: Almacenar la compra
+baseDeDatos -> Bot: Brindar informacion
+Bot -> usuario: Brindar mensaje de compra exitosa
+ 
+@enduml
+....
+ 
+## Escenarios
+ 
+* El cliente solicita la compra de ticket para una sala llena.
+* El cliente introduce mal sus datos referentes a la compra de tickets, golosinas o pipocas.
+* El cliente solicita la compra de paquetes de golosinas o pipocas agotados.
+* El cliente selecciona asientos ya ocupados.
+ 
+## Casos de Prueba
+ 
+101.1 Solicitud de compra de tickets:
+
+Se prueba la respuesta del Bot cuando un cliente requiere la compra de un ticket para una sala llena.
+
+Pasos:
+
+1. Ingresar al bot via telegram y enviar el comando/start
+    - Resultado esperado: el bot brinda una serie de opciones para poder seleccionarlas
+2. El usuario selecciona la compra de tickets de cine
+    - Resultado esperado: el bot brindara la lista de películas en cartelera
+3. El usuario selecciona la película deseada
+    - Resultado esperado: el bot desplegará los horarios disponibles
+4. El usuario seleccionara el horario requerido para una sala llena
+    - Resultado esperado: el bot desplegara el siguiente mensaje "Sala llena, porfavor seleccione otro horario"
+
+
+101.2 Validacion de informacion:
+
+Al momento de registrar los datos de la tarjeta del usuario, los siguientes datos son obligatorios :
+Nombre del titular de la tarjeta, número de la tarjeta, emisor de la tarjeta(visa, mastercard,etc), fecha de caducidad
+cvv.
+En caso que el usuario no ingrese uno de estos valores, la compra no debería proceder
+
+Pasos:
+ 
+1. Ingresar al bot via telegram y enviar el comando/start
+    - Resultado esperado: el bot brinda una serie de opciones para poder seleccionarlas
+2. El usuario selecciona la compra de tickets de cine
+    - Resultado esperado: el bot brindara la lista de películas en cartelera
+3. El usuario selecciona la película deseada
+    - Resultado esperado: el bot desplegará los horarios disponibles
+4. El usuario seleccionara el horario requerido
+    - Resultado esperado: el bot deberá desplegar la opción de la cantidad de tickets deseados.
+5. El usuario ingresará la cantidad de tickets
+    - Resultado esperado: el bot desplegará la opción para seleccionar asientos.
+6. El usuario seleccionará los asientos deseados.
+    - Resultado esperado: el bot procederá a mostrar el método de pago
+7. El usuario ingresa datos no válidos/emojis
+    - Datos: Titular de la tarjeta: 'Juan Perez😁'
+    - Resultado esperado: el bot le indicará que no puede colocar caracteres especiales con el siguiente mensaje " Porfavor introduzca la informacion sin caracteres especiales".
+8. El usuario coloca un espacio en blanco.
+    - Datos: 'espacio en blanco'
+    - Resultado esperado: el bot pide ingresar todos los datos de la tarjeta con el siguientre mensaje "Porfavor rellene todos los campos para poder validar la compra". 
+ 
+
+101.3 Solicitud de compra de pipocas o golosinas
+
+Se prueba la respuesta del Bot cuando un cliente requiere la compra de pipocas o golosinas para un paquete ya agotado.
+
+Pasos:
+
+1. Ingresar al bot via telegram y enviar el comando/start
+    - Resultado esperado: el bot brinda una serie de opciones para poder seleccionarlas
+2. El usuario selecciona la compra de pipocas o golosinas
+    - Resultado esperado: el bot brindara la lista de paquetes disponibles
+3. El usuario selecciona un paquete agotado
+    - Resultado esperado: el bot desplegará el siguiente mensaje "Paquete agotado, seleccione uno diferente"
+
+101.4 Asignacion de asientos:
+
+Se prueba la respuesta del Bot cuando un cliente realiza la compra de un ticket, en el cual selecciona un asiento ocupado.
+
+Pasos:
+
+1. Ingresar al bot via telegram y enviar el comando/start
+    - Resultado esperado: el bot brinda una serie de opciones para poder seleccionarlas
+2. El usuario selecciona la compra de tickets de cine
+    - Resultado esperado: el bot brindara la lista de películas en cartelera
+3. El usuario selecciona la película deseada
+    - Resultado esperado: el bot desplegará los horarios disponibles
+4. El usuario seleccionara el horario requerido para una sala llena
+    - Resultado esperado: el bot deberá desplegar la opción de la cantidad de tickets deseados.
+5. El usuario ingresará la cantidad de tickets
+    - Resultado esperado: el bot desplegará la opción para seleccionar asientos.
+6. El usuario seleccionará los asientos ocupados.
+    - Resultado esperado: el bot desplegará el siguiente mensaje "Asientos ocupados, porfavor seleccione diferentes asientos"
+
   
 ### 102 Entrega de tickets y productos
 
