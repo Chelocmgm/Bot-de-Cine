@@ -1,0 +1,130 @@
+= {product} - Histórias de Usuario
+Universidad Católica Boliviana. <marcelo.miranda@ucb.edu.bo>
+1.0.0
+:product: Bot para un Cine
+
+## Historia de Usuario.
+
+### 100 Cargar Horarios y Películas
+*Autor* : Marcelo Miranda
+
+*Fecha* : 7/02/2022
+
+*Prioridad* : ALTA
+
+## Descripción
+Como 'Empleado' del cine, debo realizar el cargado de las películas, para eso debo contar con un usuario para ingresar al sistema, para el cargado de las películas, debo ingresar la siguiente información:
+
+ * Nombre de la película 
+ * Horario para cada función 
+ * Sala en la que se emitirá la película 
+ * Género de la película
+ * Fechas de las funciones
+ * Fotografia de la película
+ 
+Toda esta información se debe guardar en una BDD, El bot debe tomar en cuenta los siguientes aspectos:
+
+ * La información del usuario sea correcto para ingresar al sistema.
+ * Verificar si hay choque de horarios entre películas en alguna sala.
+ * Mostrar una lista con las películas que se agregaron.
+
+El diagrama de secuencias es el siguiente:
+
+[plantuml, format="png",id= "ingresar-pelicula"]
+
+....
+@startuml
+actor Empleado
+Empleado -> Bot : Ingresar nueva película
+Bot -> Empleado: Pedir Usuario
+Empleado -> Bot : Ingresar datos
+database Empleados
+Bot --> Empleados : Verificar Datos de Usuario
+Empleados --> Bot : Datos Verificados
+Bot -> Empleado : Dar Respuesta
+Empleado -> Bot : Ingresar Datos de la Película
+database Películas
+Bot --> Películas : Ingresa Datos
+Películas --> Bot : Notificar el ingreso de datos
+Bot -> Empleado : Datos Ingresados
+
+@enduml
+....
+
+## Escenarios
+
+ * El empleado ingresa de forma erronea sus datos de usuario.
+ * El empleado no ingresa todos los datos de la película.
+ * Choque de horarios entre dos películas en una misma sala.
+
+## Casos de Prueba
+
+### 100.1.1 Ingresar al sistema
+
+Descripción: El empleado ingresa sus datos para poder ingresar al sistema.
+
+ 1. Ingresa al bot por medio de Telegram y coloca sus datos pero de forma erronea
+  * Empleado: /Hola
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: Juan12
+  * Bot: Ingrese su contraseña
+  * Empleado: 1548913
+  * Bot: Usuario o Contraseña son incorrectos, vuelva a intentarlo
+ 
+ 2. El empleado se equivoca mas de 3 veces
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: Juan12
+  * Bot: Ingrese su contraseña
+  * Empleado: Contraseña
+  * Bot: Usuario o Contraseña son incorrectos, llego al número maximo de intentos, intentelo de nuevo dentro de 1h
+
+ 3. El empleado no ingresa algun dato
+  * Empleado: /Hola
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: 
+  * Bot: Ingrese su Usuario, no debe dejar espacios vacios
+
+ 4. El empleado ingresa sus datos de forma correcta
+  * Empleado: /Hola
+  * Bot: Hola, ingrese su Usuario
+  * Empleado: Juan12
+  * Bot: Ingrese su contraseña
+  * Empleado: Juan12
+  * Bot: Datos correctos (Despliega el menu de Empleado)
+
+### 100.1.2 Ingresar los datos de la película
+Descripción: El empleado elige la opcion de "Cargar Película" para luego ingresar la información.
+
+ 1. El empleado elige la opción de "Cargar Película"
+  * Bot: Elija una opción ingresando el número
+   1 Cargar Película 2 Modificar .......... 10 Cerrar Sesión
+  * Empleado: 1
+  * Bot: Ingrese el nombre de la película
+
+ 2. El empleado no llena algun campo de la película
+  * Bot: Ingrese el nombre de la película
+  * Empleado: 
+  * Bot: No se acepta campos vacios, vuelva a llenarlo por favor
+ 
+ 3. El empleado ingresa la información pero hay un choque de horarios
+  * Bot: Ingrese los horarios (Despliega menu con horarios)
+  * Empleado: (Elije los horarios)
+  * Bot: Elija las salas (Despliega menu con numero de salas)
+  * Empleado: (Elije las salas)
+  * Bot: Hay un choque de horarios, horario 16:00 sala 1, vuelva a elegir los horarios o la sala
+
+ 4. El empleado ingresa toda la información de forma correcta de la película
+  * Bot: Ingrese el nombre de la película
+  * Empleado: Batman
+  * Bot: Ingrese el género (Despliega menu con géneros)
+  * Empleado: (Elige el género)
+  * Bot: Ingrese los horarios (Despliega menu con horarios)
+  * Empleado: (Elije los horarios)
+  * Bot: Elija las salas (Despliega menu con numero de salas)
+  * Empleado: (Elije las salas)
+  * Bot: Ingrese la fotografia
+  * Empleado: (Ingresa la fotografia)
+  * Bot: Ingreso de datos exitosos
+  
+
+
